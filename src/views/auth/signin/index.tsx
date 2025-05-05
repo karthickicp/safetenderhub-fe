@@ -1,10 +1,7 @@
-import React, { useState } from "react";
 import { useFormik } from "formik";
-import { LOGIN_SCHEMA } from "src/utils/helpers";
+import { LOGIN_SCHEMA } from "../../../utils/helpers";
 
 export default function Signin() {
-  const [mode, setMode] = useState("buyer");
-
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -13,44 +10,14 @@ export default function Signin() {
     },
     validationSchema: LOGIN_SCHEMA,
     onSubmit: (values) => {
-      alert(JSON.stringify({ ...values, mode }, null, 2));
+      alert(JSON.stringify({ ...values }, null, 2));
     },
   });
-
-  const handleModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMode(e.target.value);
-    formik.resetForm();
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-
-        <div className="flex justify-center mb-4 space-x-4">
-          <label className="flex items-center space-x-2">
-            <input
-              type="radio"
-              name="mode"
-              value="buyer"
-              checked={mode === "buyer"}
-              onChange={handleModeChange}
-              className="accent-blue-600"
-            />
-            <span>Buyer</span>
-          </label>
-          <label className="flex items-center space-x-2">
-            <input
-              type="radio"
-              name="mode"
-              value="seller"
-              checked={mode === "seller"}
-              onChange={handleModeChange}
-              className="accent-blue-600"
-            />
-            <span>Seller</span>
-          </label>
-        </div>
 
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <div>
@@ -100,7 +67,7 @@ export default function Signin() {
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded transition"
           >
-            Login as {mode.charAt(0).toUpperCase() + mode.slice(1)}
+            Login
           </button>
         </form>
       </div>
